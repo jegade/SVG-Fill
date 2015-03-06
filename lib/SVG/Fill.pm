@@ -7,7 +7,7 @@ use Mojo::DOM;
 use Path::Class;
 use URI;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 sub new {
 
@@ -49,6 +49,8 @@ sub fill_text {
 
     my ( $self, $id, $text ) = @_;
 
+    $id = "#".$id, unless $id =~ /^#/;
+
     my $dom = $self->{_dom};
 
     if ( my  $element = $dom->at($id) ) {
@@ -75,6 +77,8 @@ sub fill_image {
 
     my ( $self, $id, $image ) = @_;
 
+    $id = "#".$id, unless $id =~ /^#/;
+ 
     my $dom = $self->{_dom};
 
     if ( my $element = $dom->at($id) ) {
