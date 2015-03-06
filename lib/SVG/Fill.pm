@@ -39,12 +39,10 @@ sub convert {
 
 sub find_elements {
 
-    my ( $self ) = @_;
+    my ( $self, $id ) = @_;
 
     my $dom = $self->{_dom};
-
-       
-
+    return [ $dom->find( sprintf('image[id*="%s"],text[id*="%s"]', $id, $id))->each ];
 }
 
 sub fill_text {
