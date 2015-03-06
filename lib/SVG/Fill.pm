@@ -7,7 +7,7 @@ use Mojo::DOM;
 use Path::Class;
 use URI;
 
-our $VERSION = "0.03";
+our $VERSION = "0.04";
 
 sub new {
 

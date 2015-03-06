@@ -2,6 +2,10 @@ Revision history for Perl extension SVG-Fill
 
 {{$NEXT}}
 
+0.04 2015-03-06T14:36:06Z
+
+    - added dependencies 
+
 0.03 2015-03-06T14:34:38Z
 
     - use utf8 encoding for slurp/spew
