@@ -7,7 +7,7 @@ use Mojo::DOM;
 use Path::Class;
 use URI;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 sub new {
 
@@ -15,8 +15,8 @@ sub new {
 
     my $self = bless {};
 
-    my $file    = file($filename);
-    my $content = $file->slurp;
+    my $file = file($filename);
+    my $content = $file->slurp( iomode => '<:encoding(UTF-8)' );
 
     my $dom = Mojo::DOM->new($content);
 
@@ -35,33 +35,31 @@ sub convert {
 
 }
 
-
-
 sub find_elements {
 
     my ( $self, $id ) = @_;
 
     my $dom = $self->{_dom};
-    return [ $dom->find( sprintf('image[id*="%s"],text[id*="%s"]', $id, $id))->each ];
+    return [ $dom->find( sprintf( 'image[id*="%s"],text[id*="%s"]', $id, $id ) )->each ];
 }
 
 sub fill_text {
 
     my ( $self, $id, $text ) = @_;
 
-    $id = "#".$id, unless $id =~ /^#/;
+    $id = "#" . $id, unless $id =~ /^#/;
 
     my $dom = $self->{_dom};
 
-    if ( my  $element = $dom->at($id) ) {
+    if ( my $element = $dom->at($id) ) {
 
-        if ( $element->tag eq 'text') {
+        if ( $element->tag eq 'text' ) {
 
             $element->content($text);
-             
+
         } else {
 
-            warn "$id is a <". $element->tag.">, please use only <text>";
+            warn "$id is a <" . $element->tag . ">, please use only <text>";
         }
 
     } else {
@@ -71,31 +69,29 @@ sub fill_text {
     }
 }
 
-
-
 sub fill_image {
 
     my ( $self, $id, $image ) = @_;
 
-    $id = "#".$id, unless $id =~ /^#/;
- 
+    $id = "#" . $id, unless $id =~ /^#/;
+
     my $dom = $self->{_dom};
 
     if ( my $element = $dom->at($id) ) {
 
-        if ( $element->tag eq 'image') {
+        if ( $element->tag eq 'image' ) {
 
-            if( -e $image ) {
+            if ( -e $image ) {
 
                 my $u = URI->new('data:');
-                
-                $u->media_type('image/png') if $image =~ /png$/;
+
+                $u->media_type('image/png')     if $image =~ /png$/;
                 $u->media_type('image/svg+xml') if $image =~ /svg$/;
-                $u->media_type('imagejpeg') if $image =~ /jpg$/;
-                $u->media_type('image/gif') if $image =~ /gif$/;
+                $u->media_type('imagejpeg')     if $image =~ /jpg$/;
+                $u->media_type('image/gif')     if $image =~ /gif$/;
                 my $content = file($image)->slurp;
                 $u->data($content);
-                $element->attr( 'xlink:href', $u->as_string); 
+                $element->attr( 'xlink:href', $u->as_string );
 
             } else {
 
@@ -104,10 +100,9 @@ sub fill_image {
 
         } else {
 
-            warn "$id is a <". $element->tag.">, please use only <image> for fill_image";
-        
-        }
+            warn "$id is a <" . $element->tag . ">, please use only <image> for fill_image";
 
+        }
 
     } else {
 
@@ -120,9 +115,10 @@ sub save {
 
     my ( $self, $filename ) = @_;
     my $content = $self->{_dom}->to_string;
-    defined $filename ? file($filename)->spew($content) : $self->{_file}->spew($content);
+    defined $filename
+      ? file($filename)->spew( iomode => '>:encoding(UTF-8)', $content )
+      : $self->{_file}->spew( iomode => '>:encoding(UTF-8)', $content );
 }
-
 
 sub fix_fonts {
 
