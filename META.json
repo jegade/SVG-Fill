@@ -26,6 +26,11 @@
       ]
    },
    "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Data::Printer" : "0"
+         }
+      },
       "configure" : {
          "requires" : {
             "Module::Build::Tiny" : "0.035"
@@ -44,6 +49,7 @@
          "requires" : {
             "Mojolicious" : "0",
             "Path::Class" : "0",
+            "URI" : "0",
             "perl" : "5.008001"
          }
       },
@@ -54,6 +60,6 @@
       }
    },
    "release_status" : "unstable",
-   "version" : "0.05",
+   "version" : "0.06",
    "x_authority" : "cpan:JEGADE"
 }
