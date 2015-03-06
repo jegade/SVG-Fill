@@ -2,6 +2,10 @@ Revision history for Perl extension SVG-Fill
 
 {{$NEXT}}
 
+0.05 2015-03-06T21:17:16Z
+
+    - Fix jpeg mimetype 
+
 0.04 2015-03-06T14:36:06Z
 
     - added dependencies 

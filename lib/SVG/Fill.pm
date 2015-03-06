@@ -7,7 +7,7 @@ use Mojo::DOM;
 use Path::Class;
 use URI;
 
-our $VERSION = "0.04";
+our $VERSION = "0.05";
 
 sub new {
 
@@ -87,7 +87,7 @@ sub fill_image {
 
                 $u->media_type('image/png')     if $image =~ /png$/;
                 $u->media_type('image/svg+xml') if $image =~ /svg$/;
-                $u->media_type('imagejpeg')     if $image =~ /jpg$/;
+                $u->media_type('image/jpeg')    if $image =~ /jpg$/;
                 $u->media_type('image/gif')     if $image =~ /gif$/;
                 my $content = file($image)->slurp;
                 $u->data($content);
@@ -153,15 +153,9 @@ SVG::Fill - use svg file as templates, replace strings and images by id
     # Save the modified svg
     $file->save('output.svg');
 
-    # If rsvg-convert also installed, you could generate png and pdf from the svg file
-    $file->convert('output.png','png');
-    $file->convert('output.pdf','pdf');
-
 =head1 DESCRIPTION
 
-SVG::Fill rewrites svg as template. Elements like text and img could be replaced by id (layer-name in Adobe Illustrator) 
-
-Current 
+SVG::Fill rewrites svg as template. Elements like text and img could be replaced by id (layer-name in Adobe Illustrator/Inkscape) 
 
 =head1 LICENSE
 
