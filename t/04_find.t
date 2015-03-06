@@ -11,7 +11,14 @@ isa_ok( $file, 'SVG::Fill' );
 
 use DDP;
 
-p $file->find_elements('My');
+my $result1 = $file->find_elements('My'); 
+
+ok(@$result1==2,"Elements found");
+
+my $result2 = $file->find_elements('Image'); 
+ok(@$result2==1,"Element image found");
+
+
 
 done_testing;
 
