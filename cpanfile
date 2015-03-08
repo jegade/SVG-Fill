@@ -1,5 +1,5 @@
 requires 'perl', '5.008001';
-requires 'Mojolicious' ;
+requires 'Mojolicious', '6.0';
 requires 'Path::Class';
 requires 'URI';
 
