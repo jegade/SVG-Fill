@@ -7,7 +7,7 @@ use Mojo::DOM;
 use Path::Class;
 use URI;
 
-our $VERSION = "0.08";
+our $VERSION = "0.09";
 
 sub new {
 
@@ -136,10 +136,14 @@ sub font_fix {
                 # Fix '' escaping by Illustrator
                 $font =~ s/^'//g;
                 $font =~ s/'$//g;
-
+                
+               
                 # Remove MT-Variant
                 $font =~ s/MT//g;
-            
+
+                # Font-weight as attribute
+                $font =~ s/\-bold$/:bold/ig;
+             
                 $element->attr( 'font-family' => $font );
             }
 

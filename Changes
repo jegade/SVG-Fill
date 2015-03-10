@@ -2,6 +2,10 @@ Revision history for Perl extension SVG-Fill
 
 {{$NEXT}}
 
+0.09 2015-03-10T12:08:15Z
+
+    - Better Font Handling for svg-convert 
+
 0.08 2015-03-10T11:00:05Z
 
     - New method font_fix added, removes ugly font-family-Attribute written bei Illustrator 
