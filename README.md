@@ -4,19 +4,22 @@ SVG::Fill - use svg file as templates, replace strings and images by id
 
 # SYNOPSIS
 
-    use SVG::Fill;
+       use SVG::Fill;
 
-    # Open the filename for resue
-    my $file = SVG::Fill->new( 'example.svg' );
+       # Open the filename for resue
+       my $file = SVG::Fill->new( 'example.svg' );
 
-    # Fill text in to a text field 
-    $file->fill_text('#Template_ID', 'New Text');
+       # Fill text in to a text field 
+       $file->fill_text('#Template_ID', 'New Text');
 
-    # Save image in to an image
-    $file->fill_image('#Template_ID', 'file.png');
-        
-    # Save the modified svg
-    $file->save('output.svg');
+       # Save image in to an image
+       $file->fill_image('#Template_ID', 'file.png');
+    
+       # Cleanup ugly font-family-Attributes, removes '' written by Adobe Illustrator 
+       $file->font_fix;
+
+       # Save the modified svg
+       $file->save('output.svg');
 
 # DESCRIPTION
 
