@@ -120,12 +120,31 @@ sub save {
       : $self->{_file}->spew( iomode => '>:encoding(UTF-8)', $content );
 }
 
-sub fix_fonts {
+sub font_fix {
 
-    my $self = @_;
+    my $self = shift;
 
     my $dom = $self->{_dom};
 
+    $dom->find('text')->map(
+        sub {
+
+            my $element = $_;
+
+            if ( my $font = $element->attr('font-family') ) {
+
+                # Fix '' escaping by Illustrator
+                $font =~ s/^'//g;
+                $font =~ s/'$//g;
+
+                # Remove MT-Variant
+                $font =~ s/MT//g;
+            
+                $element->attr( 'font-family' => $font );
+            }
+
+        }
+    );
 }
 
 1;
@@ -149,7 +168,10 @@ SVG::Fill - use svg file as templates, replace strings and images by id
 
     # Save image in to an image
     $file->fill_image('#Template_ID', 'file.png');
-        
+ 
+    # Cleanup ugly font-family-Attributes, removes '' written by Adobe Illustrator 
+    $file->font_fix;
+
     # Save the modified svg
     $file->save('output.svg');
 
